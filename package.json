@@ -2,6 +2,9 @@
   "name": "meteor-package-intellisense",
   "displayName": "Meteor Package IntelliSense",
   "description": "IntelliSense for local meteor packages. Teaches VS Code where your 'meteor/package-name' imports are located.",
+  "repository": {
+      "url": "https://github.com/mattblackdev/meteor-package-intellisense.git"
+  },
   "version": "1.0.0",
   "publisher": "mattblack",
   "engines": {
