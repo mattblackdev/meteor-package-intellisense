@@ -46,6 +46,7 @@ function activate(context) {
           )
             .catch(err => {
               vscode.window.showErrorMessage(err)
+              return
             })
             .then(packageCodeAndPaths => {
               if (!packageCodeAndPaths || !packageCodeAndPaths.length) {
@@ -68,7 +69,7 @@ function activate(context) {
 
                   const key = `meteor/${sandbox.Package.name}`
                   const value = sandbox.Package.mainModules.map(modulePath =>
-                    path.resolve(packagePath, modulePath).substring(1)
+                    path.join(packagePath, modulePath)
                   )
 
                   return {
@@ -76,16 +77,25 @@ function activate(context) {
                     value,
                   }
                 })
+                .filter(({ value }) => value.length > 0)
                 .reduce((acc, { key, value }) => {
                   acc[key] = value
                   return acc
                 }, {})
 
               vscode.workspace.findFiles('jsconfig.json').then(uris => {
-                if (!uris.length) return
-                const jsconfigPath = uris[0].fsPath
-                const jsconfigFile =
-                  fs.readFileSync(jsconfigPath).toString() || '{}'
+                let jsconfigPath
+                let jsconfigFile
+                if (!uris.length) {
+                  const workspacePath =
+                    vscode.workspace.workspaceFolders[0].uri.fsPath
+                  jsconfigPath = path.resolve(workspacePath, 'jsconfig.json')
+                  jsconfigFile = '{}'
+                } else {
+                  jsconfigPath = uris[0].fsPath
+                  jsconfigFile = fs.readFileSync(jsconfigPath).toString()
+                }
+
                 let jsconfig
                 try {
                   jsconfig = JSON.parse(jsconfigFile)

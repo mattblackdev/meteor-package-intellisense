@@ -5,7 +5,7 @@ A VS Code extension that enables IntelliSense for local meteor packages by teach
 ## Commands
 
 ```Meteor Package IntelliSense```
- will modify your jsconfig.json file with required mapping of imports to file location. For example:
+ will modify (or create) your jsconfig.json file with required mapping of imports to file location. For example:
 
 ```js
 // packages/vulcan-forms/package.js
@@ -37,17 +37,17 @@ Will generate:
 
 ## Requirements
 
-Must have a jsconfig.json file.
 Anytime you modify packages' names, folder names or mainModule paths, you should re-run the command.
 
 ## Known Issues
 
-None yet
+- Only works for a single workspace
 
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 1.1.0
 
-Initial release
+Now creates your jsconfig file if it doesn't exist
+
