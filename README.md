@@ -1,35 +1,48 @@
-# meteor-package-intellisense README
+# meteor-package-intellisense
 
-This is the README for your extension "meteor-package-intellisense". After writing up a brief description, we recommend including the following sections.
+A VS Code extension that enables IntelliSense for local meteor packages by teaching VS Code where your 'meteor/package-name' imports are coming from.
 
-## Features
+## Commands
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+```Meteor Package IntelliSense```
+ will modify your jsconfig.json file with required mapping of imports to file location. For example:
 
-For example if there is an image subfolder under your extension project workspace:
+```js
+// packages/vulcan-forms/package.js
+Package.describe({
+  name: "vulcan:forms",
+});
 
-\!\[feature X\]\(images/feature-x.png\)
+Package.onUse(function(api) {
+  api.mainModule("lib/client/main.js", ["client"]);
+  api.mainModule("lib/server/main.js", ["server"]);
+});
+```
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Will generate:
+```json
+// jsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "meteor/vulcan:forms": [
+        "packages/vulcan-forms/lib/client/main.js",
+        "packages/vulcan-forms/lib/server/main.js"
+      ]
+    }
+  }
+}
+```
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+Must have a jsconfig.json file.
+Anytime you modify packages' names, folder names or mainModule paths, you should re-run the command.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None yet
 
 ## Release Notes
 
@@ -37,29 +50,4 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release

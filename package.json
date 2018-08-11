@@ -1,39 +1,39 @@
 {
-    "name": "meteor-package-intellisense",
-    "displayName": "Meteor Package IntelliSense",
-    "description": "Enables IntelliSense for local meteor packages by teaching VS Code where your 'meteor/package-name' imports are coming from.",
-    "version": "0.0.1",
-    "publisher": "mattblack",
-    "engines": {
-        "vscode": "^1.25.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.enableMeteorPackageIntelliSense"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.enableMeteorPackageIntelliSense",
-                "title": "Enable Meteor Package IntelliSense"
-            }
-        ]
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "eslint": "^4.11.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    },
-    "dependencies": {
-        "deepmerge": "^2.1.1"
-    }
+  "name": "meteor-package-intellisense",
+  "displayName": "Meteor Package IntelliSense",
+  "description": "IntelliSense for local meteor packages. Teaches VS Code where your 'meteor/package-name' imports are located.",
+  "version": "1.0.0",
+  "publisher": "mattblack",
+  "engines": {
+    "vscode": "^1.25.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.meteorPackageIntelliSense"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.meteorPackageIntelliSense",
+        "title": "Meteor Package IntelliSense"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6",
+    "eslint": "^4.11.0",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "deepmerge": "^2.1.1"
+  }
 }
