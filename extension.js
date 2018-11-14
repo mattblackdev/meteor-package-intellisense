@@ -20,12 +20,16 @@ function activate(context) {
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
     'extension.meteorPackageIntelliSense',
-    function() {
+    function () {
       // The code you place here will be executed every time your command is executed
+      const meteorPackageDirs = process.env.METEOR_PACKAGE_DIRS
+      // @TODO: Handle the situation the METEOR_PACKAGE_DIRS doesn't exist
+      const relativeDirs = meteorPackageDirs.split(':').map(dir => vscode.workspace.asRelativePath(dir));
+      const globPattern = `{packages,${relativeDirs}}/**/package.js`;
 
       // Find all the local package.js files inside /packages folder
       vscode.workspace
-        .findFiles('packages/**/package.js')
+        .findFiles(globPattern)
         .then(packageFileURIs => {
           Promise.all(
             packageFileURIs.map(uri => {
@@ -143,5 +147,5 @@ function activate(context) {
 exports.activate = activate
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 exports.deactivate = deactivate
